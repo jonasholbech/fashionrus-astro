@@ -1,0 +1,23 @@
+---
+const response = await fetch("https://kea-alt-del.dk/t7/api/categories");
+const data = await response.json();
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <ul>
+      {
+        data.map((item) => {
+          return (
+            <li>
+              <a href={`/categories/${item.category}`}>{item.category}</a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </main>
+
+  <style></style>
+</Layout>

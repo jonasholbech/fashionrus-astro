@@ -1,0 +1,26 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const { id } = Astro.params;
+export async function getStaticPaths() {
+  const response = await fetch(
+    "https://kea-alt-del.dk/t7/api/products?limit=1000"
+  );
+  const data = await response.json();
+  return data.map((el) => ({ params: { id: el.id } }));
+}
+
+const res = await fetch("https://kea-alt-del.dk/t7/api/products/" + id);
+const product = await res.json();
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h2>{product.productdisplayname}</h2>
+    <img
+      src={`https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp`}
+      alt=""
+    />
+  </main>
+
+  <style></style>
+</Layout>
